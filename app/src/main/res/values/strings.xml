@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">NewsApp v.2</string>
+
+    <!-- Text to display in the list when there are no news [CHAR LIMIT=NONE] -->
+    <string name="empty_message">No news found. Please reload.</string>
+
+    <!-- Error message when there is no internet connectivity [CHAR LIMIT=NONE] -->
+    <string name="no_internet_connection">No internet connection.</string>
+
+    <!-- Welcome message -->
+    <string name="welcome">Welcome to Premier League NewsApp. \nPlease scroll for the latest news.</string>
+
+    <!-- Welcome message -->
+    <string name="press">Press to read more</string>
+</resources>
+
