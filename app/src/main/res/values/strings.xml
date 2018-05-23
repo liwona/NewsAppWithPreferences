@@ -18,5 +18,30 @@
 
     <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
     <string name="settings_title">News Settings</string>
-</resources>
 
+    <!--<string name="settings_league_label">League</string>-->
+    <!--<string name="settings_league_key" translatable="false">league</string>-->
+    <!--<string name="settings_league_default" translatable="false">Premier League</string>-->
+
+    <!-- Strings For League Preference [CHAR LIMIT=30] -->
+    <string name="settings_leagues_label">League</string>
+    <string name="settings_leagues_key" translatable="false">league</string>
+    <string name="settings_leagues_default" translatable="false">@string/settings_premier_league_value</string>
+
+    <!-- Label for Premier League option [CHAR LIMIT=20] -->
+    <string name="settings_premier_league_label">Premier League</string>
+    <string name="settings_premier_league_value" translatable="false">football/premierleague</string>
+
+    <!-- Label for La Liga option [CHAR LIMIT=20] -->
+    <string name="settings_la_liga_label">La Liga</string>
+    <string name="settings_la_liga_value" translatable="false">football/laligafootball</string>
+
+    <!-- Label for La Liga option [CHAR LIMIT=20] -->
+    <string name="settings_bundesliga_label">Bundesliga</string>
+    <string name="settings_bundesliga_value" translatable="false">football/bundesligafootball</string>
+
+    <!-- Label for La Liga option [CHAR LIMIT=20] -->
+    <string name="settings_serie_a_label">Serie A</string>
+    <string name="settings_serie_a_value" translatable="false">football/serieafootball</string>>
+
+</resources>

@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -21,11 +23,15 @@ import java.util.List;
 
 public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <List<News>> {
 
-    /** URL for news data from the Guardian*/
+    /**
+     * URL for news data from the Guardian
+     */
     private static final String GUARDIAN_REQUEST_URL =
-            "http://content.guardianapis.com/search?tag=football%2Fpremierleague&from-date=2018-01-01&show-tags=contributor&page-size=20&api-key=45a13215-127c-4174-b72f-ae7aa38cce0e";
+            "http://content.guardianapis.com/search?tag=football%2Fpremierleague&from-date=2018-05-15&show-tags=contributor&page-size=20&api-key=45a13215-127c-4174-b72f-ae7aa38cce0e";
 
-    /** Adapter for the list of news */
+    /**
+     * Adapter for the list of news
+     */
     private NewsAdapter mAdapter;
 
     /**
@@ -84,7 +90,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <
             //Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
 
-            Log.v("Before initLoader","next step: initLoader");
+            Log.v("Before initLoader", "next step: initLoader");
 
             // Initialize the loader. Pass in the int ID constant defined above and pass in null for
             // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
@@ -112,7 +118,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <
 
     @Override
     public Loader<List<News>> onCreateLoader(int id, Bundle args) {
-        Log.v("In onCreateLoader","before returning list");
+        Log.v("In onCreateLoader", "before returning list");
         // Create a new loader for the given URL
         return new NewsLoader(this, GUARDIAN_REQUEST_URL);
     }
@@ -128,12 +134,12 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <
 
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
-        Log.v("In onLoadFinished","after mAdapter is cleared");
+        Log.v("In onLoadFinished", "after mAdapter is cleared");
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (news != null && !news.isEmpty()) {
             mAdapter.addAll(news);
-            Log.v("In onLoadFinihed","after list is added to Adapter");
+            Log.v("In onLoadFinihed", "after list is added to Adapter");
         }
     }
 
@@ -141,6 +147,26 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <
     public void onLoaderReset(Loader<List<News>> loader) {
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
-        Log.v("In onLoadeReset","after mAdapter is cleared");
+        Log.v("In onLoadeReset", "after mAdapter is cleared");
+    }
+
+    @Override
+    // This method initialize the contents of the Activity's options menu
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    // This method is called whenever an item in the options menu is selected.
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }
