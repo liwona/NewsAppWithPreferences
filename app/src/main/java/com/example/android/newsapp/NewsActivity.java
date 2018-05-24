@@ -134,6 +134,10 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <
                 getString(R.string.settings_order_by_key),
                 getString(R.string.settings_order_by_default));
 
+        String pageSize = sharedPrefs.getString(
+                getString(R.string.settings_page_size_key),
+                getString(R.string.settings_page_size_default));
+
         // parse breaks apart the URI string that's passed into its parameter
         Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
 
@@ -144,7 +148,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <
         uriBuilder.appendQueryParameter("tag", leagues);
         uriBuilder.appendQueryParameter("from-date", "2018-05-15");
         uriBuilder.appendQueryParameter("show-tags", "contributor");
-        uriBuilder.appendQueryParameter("page-size", "20");
+        uriBuilder.appendQueryParameter("page-size", pageSize);
         uriBuilder.appendQueryParameter("order-by", orderBy);
         uriBuilder.appendQueryParameter("api-key", "45a13215-127c-4174-b72f-ae7aa38cce0e");
 

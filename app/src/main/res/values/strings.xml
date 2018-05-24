@@ -19,10 +19,6 @@
     <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
     <string name="settings_title">News Settings</string>
 
-    <!--<string name="settings_league_label">League</string>-->
-    <!--<string name="settings_league_key" translatable="false">league</string>-->
-    <!--<string name="settings_league_default" translatable="false">Premier League</string>-->
-
     <!-- Strings For League Preference [CHAR LIMIT=30] -->
     <string name="settings_leagues_label">League</string>
     <string name="settings_leagues_key" translatable="false">league</string>
@@ -60,5 +56,10 @@
     <!-- Label for "newest" option [CHAR LIMIT=20] -->
     <string name="settings_relevance_label">Most Relevant</string>
     <string name="settings_relevance_value" translatable="false">relevance</string>
+
+    <!-- Strings For Page Size Preference [CHAR LIMIT=30] -->
+    <string name="settings_page_size_label">Page Size</string>
+    <string name="settings_page_size_key" translatable="false">page-size</string>
+    <string name="settings_page_size_default" translatable="false">20</string>
 
 </resources>
