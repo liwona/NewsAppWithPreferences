@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +29,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <
      */
     private static final String GUARDIAN_REQUEST_URL =
             "http://content.guardianapis.com/search";
-
-//"?tag=football%2Fpremierleague&from-date=2018-05-15&show-tags=contributor&page-size=20&api-key=45a13215-127c-4174-b72f-ae7aa38cce0e";
 
     /**
      * Adapter for the list of news
@@ -116,8 +113,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <
 
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
         newsListView.setEmptyView(mEmptyStateTextView);
-
-
     }
 
     @Override
@@ -125,7 +120,8 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <
         Log.v("In onCreateLoader", "before returning list");
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
+        // getString retrieves a String value from the preferences. The second parameter is the
+        // default value for this preference.
         String leagues = sharedPrefs.getString(
                 getString(R.string.settings_leagues_key),
                 getString(R.string.settings_leagues_default));
@@ -143,16 +139,16 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <
 
         // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
         Uri.Builder uriBuilder = baseUri.buildUpon();
-///"?tag=football%2Fpremierleague&from-date=2018-05-15&show-tags=contributor&page-size=20&api-key=45a13215-127c-4174-b72f-ae7aa38cce0e";
-        // Append query parameter and its value. For example, the `format=geojson`
+
+        // Append query parameter and its value
         uriBuilder.appendQueryParameter("tag", leagues);
-        uriBuilder.appendQueryParameter("from-date", "2018-05-15");
+        uriBuilder.appendQueryParameter("from-date", "2018-01-01");
         uriBuilder.appendQueryParameter("show-tags", "contributor");
         uriBuilder.appendQueryParameter("page-size", pageSize);
         uriBuilder.appendQueryParameter("order-by", orderBy);
         uriBuilder.appendQueryParameter("api-key", "45a13215-127c-4174-b72f-ae7aa38cce0e");
 
-        // Return the completed uri `http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10&minmag=minMagnitude&orderby=time
+        // Return the completed uri
         return new NewsLoader(this, uriBuilder.toString());
 
     }
