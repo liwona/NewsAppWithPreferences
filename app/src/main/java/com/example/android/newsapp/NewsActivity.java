@@ -5,9 +5,11 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,7 +29,9 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <
      * URL for news data from the Guardian
      */
     private static final String GUARDIAN_REQUEST_URL =
-            "http://content.guardianapis.com/search?tag=football%2Fpremierleague&from-date=2018-05-15&show-tags=contributor&page-size=20&api-key=45a13215-127c-4174-b72f-ae7aa38cce0e";
+            "http://content.guardianapis.com/search";
+
+//"?tag=football%2Fpremierleague&from-date=2018-05-15&show-tags=contributor&page-size=20&api-key=45a13215-127c-4174-b72f-ae7aa38cce0e";
 
     /**
      * Adapter for the list of news
@@ -119,8 +123,34 @@ public class NewsActivity extends AppCompatActivity implements LoaderCallbacks <
     @Override
     public Loader<List<News>> onCreateLoader(int id, Bundle args) {
         Log.v("In onCreateLoader", "before returning list");
-        // Create a new loader for the given URL
-        return new NewsLoader(this, GUARDIAN_REQUEST_URL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
+        String leagues = sharedPrefs.getString(
+                getString(R.string.settings_leagues_key),
+                getString(R.string.settings_leagues_default));
+
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
+
+        // parse breaks apart the URI string that's passed into its parameter
+        Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
+
+        // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+///"?tag=football%2Fpremierleague&from-date=2018-05-15&show-tags=contributor&page-size=20&api-key=45a13215-127c-4174-b72f-ae7aa38cce0e";
+        // Append query parameter and its value. For example, the `format=geojson`
+        uriBuilder.appendQueryParameter("tag", leagues);
+        uriBuilder.appendQueryParameter("from-date", "2018-05-15");
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("page-size", "20");
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("api-key", "45a13215-127c-4174-b72f-ae7aa38cce0e");
+
+        // Return the completed uri `http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10&minmag=minMagnitude&orderby=time
+        return new NewsLoader(this, uriBuilder.toString());
+
     }
 
     @Override
